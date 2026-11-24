@@ -1,0 +1,715 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HCP Segmentation</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Additional styles for the exclusion and guidance sections */
+
+        .feature-guide {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .guide-card {
+            background: #f8faff;
+            border: 1px solid #e3eaf5;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .guide-card h4 {
+            margin: 0 0 8px;
+            color: #26364d;
+        }
+
+        .guide-card p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .guide-card .guide-icon {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .exclusion-summary {
+            background: #f8faff;
+            border: 1px solid #e1e8f5;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .exclusion-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .exclusion-stat {
+            background: white;
+            padding: 15px;
+            border: 1px solid #e5eaf2;
+            border-radius: 10px;
+        }
+
+        .exclusion-stat h2 {
+            color: #3157a4;
+            margin: 0 0 5px;
+            font-size: 25px;
+        }
+
+        .exclusion-stat p {
+            font-size: 12px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .field-list {
+            background: white;
+            border: 1px solid #e5eaf2;
+            border-radius: 9px;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #475569;
+            overflow-wrap: anywhere;
+        }
+
+        .field-group {
+            margin-top: 16px;
+        }
+
+        .field-group h4 {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .selection-note {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .section-heading {
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+
+        .upload-note {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 10px;
+        }
+
+        .result-card {
+            background: white;
+            border: 1px solid #e5eaf2;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 14px;
+        }
+
+        .result-card.best {
+            border: 1px solid #6b91d9;
+            background: #f8faff;
+        }
+
+        .result-card h3 {
+            margin: 0 0 12px;
+        }
+
+        .result-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .result-error {
+            color: #b91c1c;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .weight-item {
+            background: #f8faff;
+            border: 1px solid #e5eaf2;
+            border-radius: 9px;
+            padding: 13px;
+            margin-bottom: 10px;
+        }
+
+        .weight-item-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .weight-item input {
+            width: 100%;
+        }
+
+        .ai-panel {
+            background: #f8faff;
+            border: 1px solid #e1e8f5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 22px;
+        }
+
+        .ai-panel textarea {
+            width: 100%;
+            min-height: 90px;
+            padding: 12px;
+            border: 1px solid #d7dfeb;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: inherit;
+            box-sizing: border-box;
+            margin: 10px 0;
+        }
+
+        .ai-output {
+            white-space: pre-wrap;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #475569;
+            margin-top: 12px;
+        }
+
+        .ai-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .status-message {
+            font-size: 13px;
+            margin-top: 12px;
+            color: #475569;
+        }
+
+        .schema-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 600px) {
+            .exclusion-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .result-metrics {
+                flex-direction: column;
+                gap: 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <span>✦</span>
+            <h2>HCP Segmentation</h2>
+        </div>
+
+        <nav>
+            <a href="#" class="nav-item active">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="#uploadSection" class="nav-item">
+                <span>↑</span> Upload Dataset
+            </a>
+
+            <a href="#profileSection" class="nav-item">
+                <span>◈</span> Data Profiling
+            </a>
+
+            <a href="#resultsSection" class="nav-item">
+                <span>◉</span> Segmentation Results
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            AI-powered HCP Analytics
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <div>
+                <h2>Dashboard</h2>
+                <p>HCP Data Segmentation Workspace</p>
+            </div>
+
+            <div class="topbar-right">
+                <span class="status-indicator">● System Active</span>
+            </div>
+
+        </div>
+
+
+        <div class="content">
+
+            <!-- WELCOME -->
+
+            <section class="welcome">
+
+                <div>
+                    <span class="section-label">AI + MACHINE LEARNING WORKSPACE</span>
+
+                    <h1>Welcome to HCP Segmentation</h1>
+
+                    <p>
+                        Transform healthcare professional data into meaningful
+                        segments using machine learning and AI-powered insights.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">
+                    📊
+                </div>
+
+            </section>
+
+
+            <!-- WORKFLOW -->
+
+            <section class="workflow">
+
+                <div class="step active">
+                    <span>1</span>
+                    <div>
+                        <strong>Upload</strong>
+                        <small>Import dataset</small>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span>2</span>
+                    <div>
+                        <strong>Profile</strong>
+                        <small>Assess data</small>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span>3</span>
+                    <div>
+                        <strong>Segment</strong>
+                        <small>Run clustering</small>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span>4</span>
+                    <div>
+                        <strong>Analyze</strong>
+                        <small>Explore insights</small>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- UPLOAD SECTION -->
+
+            <section class="card" id="uploadSection">
+
+                <div class="section-label">STEP 01</div>
+
+                <h2>Upload HCP Dataset</h2>
+
+                <p class="card-description">
+                    Upload a CSV file containing HCP-level prescription,
+                    engagement, specialty or regional information.
+                </p>
+
+                <div class="upload-box">
+
+                    <div class="upload-icon">📁</div>
+
+                    <h3>Select your dataset</h3>
+
+                    <p>Choose a CSV file from your computer</p>
+
+                    <input
+                        type="file"
+                        id="fileInput"
+                        accept=".csv"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="uploadDataset()"
+                    >
+                        Upload Dataset
+                    </button>
+
+                </div>
+
+                <p class="upload-note">
+                    Supported format: CSV
+                </p>
+
+                <div id="uploadStatus" class="status-message"></div>
+
+            </section>
+
+
+            <!-- PROFILE SECTION -->
+
+            <section class="card" id="profileSection" style="display:none;">
+
+                <div class="section-label">STEP 02</div>
+
+                <h2>Data Quality Assessment</h2>
+
+                <p class="card-description">
+                    Review the uploaded dataset, identify relevant features
+                    and understand which fields are retained only for reference.
+                </p>
+
+
+                <!-- DATA STATS -->
+
+                <div id="stats" class="stats-grid"></div>
+
+
+                <!-- SCHEMA -->
+
+                <div class="section-heading">
+
+                    <h3>Detected Data Schema</h3>
+
+                    <p class="card-description">
+                        Automatically detected columns, data types and
+                        suggested roles.
+                    </p>
+
+                </div>
+
+                <div class="schema-table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Column</th>
+                                <th>Data Type</th>
+                                <th>Missing</th>
+                                <th>Unique</th>
+                                <th>Suggested Role</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="schemaBody"></tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- FEATURE EXPLANATION -->
+
+                <div class="section-heading">
+
+                    <h3>Understanding Clustering Inputs</h3>
+
+                    <p class="card-description">
+                        Not every column in the dataset should influence
+                        how HCPs are grouped.
+                    </p>
+
+                </div>
+
+                <div class="feature-guide">
+
+                    <div class="guide-card">
+
+                        <div class="guide-icon">📈</div>
+
+                        <h4>Clustering Inputs</h4>
+
+                        <p>
+                            Behavioural and business variables such as
+                            prescription volume, product-level prescribing,
+                            engagement, specialty, region and therapy area.
+                            Only selected features are used.
+                        </p>
+
+                    </div>
+
+                    <div class="guide-card">
+
+                        <div class="guide-icon">🪪</div>
+
+                        <h4>Reference Fields</h4>
+
+                        <p>
+                            HCP IDs, names and other identification fields
+                            are retained for reporting and record mapping.
+                            They are not used in distance calculations.
+                        </p>
+
+                    </div>
+
+                    <div class="guide-card">
+
+                        <div class="guide-icon">⚠️</div>
+
+                        <h4>Existing Business Labels</h4>
+
+                        <p>
+                            Existing tiers, categories or segment labels
+                            are excluded by default to avoid biasing
+                            the newly generated segments.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EXCLUSION SUMMARY -->
+
+                <div class="exclusion-summary">
+
+                    <h3>Excluded / Reference Variables</h3>
+
+                    <p class="card-description">
+                        These fields are not currently used as clustering inputs.
+                    </p>
+
+                    <div class="exclusion-stats">
+
+                        <div class="exclusion-stat">
+                            <h2 id="excludedCount">0</h2>
+                            <p>Total reference and excluded fields</p>
+                        </div>
+
+                        <div class="exclusion-stat">
+                            <h2 id="referenceCount">0</h2>
+                            <p>Reference fields</p>
+                        </div>
+
+                        <div class="exclusion-stat">
+                            <h2 id="excludedLabelCount">0</h2>
+                            <p>Excluded business labels</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <h4>🪪 Reference Fields</h4>
+
+                        <p class="card-description">
+                            Retained for identification and reporting.
+                        </p>
+
+                        <div
+                            class="field-list"
+                            id="referenceFields"
+                        >
+                            None detected
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <h4>⚠️ Excluded Business Labels</h4>
+
+                        <p class="card-description">
+                            Existing classifications not used to generate
+                            new clusters by default.
+                        </p>
+
+                        <div
+                            class="field-list"
+                            id="excludedLabels"
+                        >
+                            None detected
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <h4>🔍 Fields Requiring Review</h4>
+
+                        <div
+                            class="field-list"
+                            id="reviewFields"
+                        >
+                            None detected
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FEATURE SELECTION -->
+
+                <div class="section-heading">
+
+                    <h3>Select Clustering Features</h3>
+
+                    <p class="card-description">
+                        Choose the variables that should influence
+                        the HCP segmentation process.
+                    </p>
+
+                </div>
+
+                <div id="featureList"></div>
+
+                <p class="selection-note">
+                    Only checked features enter preprocessing and clustering.
+                    Reference fields and excluded business labels cannot
+                    be selected here.
+                </p>
+
+
+                <!-- CLUSTER COUNT -->
+
+                <div class="cluster-control">
+
+                    <label for="clusterCount">
+                        Number of Clusters
+                    </label>
+
+                    <input
+                        type="number"
+                        id="clusterCount"
+                        min="2"
+                        max="20"
+                        value="3"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    onclick="runSegmentation()"
+                >
+                    Run HCP Segmentation
+                </button>
+
+                <div id="profileStatus" class="status-message"></div>
+
+            </section>
+
+
+            <!-- RESULTS SECTION -->
+
+            <section class="card" id="resultsSection" style="display:none;">
+
+                <div class="section-label">STEP 03</div>
+
+                <h2>Segmentation Results</h2>
+
+                <p class="card-description">
+                    Compare clustering algorithms and review the
+                    generated HCP segments.
+                </p>
+
+
+                <div id="results"></div>
+
+
+                <!-- FEATURE WEIGHTS -->
+
+                <div class="section-heading">
+
+                    <h3>Feature Weight Adjustment</h3>
+
+                    <p class="card-description">
+                        Adjust the relative importance of selected features.
+                        Higher weights give a feature greater influence
+                        during clustering.
+                    </p>
+
+                </div>
+
+                <div id="weights"></div>
+
+
+                <button
+                    type="button"
+                    onclick="runSegmentation()"
+                >
+                    Re-run Segmentation
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="downloadReport()"
+                >
+                    Download Excel Report
+                </button>
+
+                <div id="resultStatus" class="status-message"></div>
+
+                <!-- AI SECTION IS CREATED BY JAVASCRIPT -->
+
+            </section>
+
+
+            <!-- FOOTER -->
+
+            <footer>
+                <p>
+                    HCP Segmentation | AI-powered HCP Data Segmentation
+                </p>
+            </footer>
+
+        </div>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

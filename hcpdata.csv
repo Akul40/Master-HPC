@@ -1,0 +1,31 @@
+HCP_ID,HCP_Name,Specialty,HCP_Tier,Region,Therapy_Area,Total_Prescriptions_90D,Product_A_Prescriptions_90D,Product_B_Prescriptions_90D,Product_C_Prescriptions_90D,Engagement_Score,Potential_Category
+HCP1001,Dr. A Sharma,Cardiology,Tier 1,North,Cardiovascular,128,42,18,14,76,High
+HCP1002,Dr. R Mehta,Cardiology,Tier 1,West,Cardiovascular,115,38,16,12,72,High
+HCP1003,Dr. P Nair,Endocrinology,Tier 1,South,Diabetes,142,51,22,17,81,High
+HCP1004,Dr. S Iyer,Endocrinology,Tier 2,South,Diabetes,96,34,15,10,64,Medium
+HCP1005,Dr. K Rao,General Medicine,Tier 2,East,Diabetes,82,29,11,8,58,Medium
+HCP1006,Dr. M Gupta,General Medicine,Tier 3,North,Cardiovascular,39,14,5,3,31,Low
+HCP1007,Dr. N Verma,Cardiology,Tier 2,North,Cardiovascular,91,31,13,9,61,Medium
+HCP1008,Dr. T Reddy,Endocrinology,Tier 1,South,Diabetes,151,56,24,19,86,High
+HCP1009,Dr. V Patel,General Medicine,Tier 3,West,Diabetes,34,11,4,2,27,Low
+HCP1010,Dr. D Singh,Cardiology,Tier 2,East,Cardiovascular,88,30,12,8,57,Medium
+HCP1011,Dr. L Menon,Endocrinology,Tier 2,West,Diabetes,103,37,16,11,68,Medium
+HCP1012,Dr. J Das,General Medicine,Tier 3,East,Cardiovascular,42,15,6,4,33,Low
+HCP1013,Dr. C Kapoor,Cardiology,Tier 1,West,Cardiovascular,136,47,20,16,79,High
+HCP1014,Dr. F Khan,Endocrinology,Tier 3,North,Diabetes,46,16,6,4,35,Low
+HCP1015,Dr. B Joshi,General Medicine,Tier 2,South,Diabetes,89,32,13,9,62,Medium
+HCP1016,Dr. E Thomas,Cardiology,Tier 1,South,Cardiovascular,121,43,19,13,74,High
+HCP1017,Dr. G Chawla,Endocrinology,Tier 2,East,Diabetes,78,27,10,7,54,Medium
+HCP1018,Dr. H Kulkarni,General Medicine,Tier 3,West,Cardiovascular,31,10,3,2,25,Low
+HCP1019,Dr. I Banerjee,Cardiology,Tier 2,North,Cardiovascular,94,33,14,10,65,Medium
+HCP1020,Dr. O Fernandes,Endocrinology,Tier 1,West,Diabetes,147,53,23,18,84,High
+HCP1021,Dr. W Sinha,General Medicine,Tier 3,North,Diabetes,37,13,4,3,29,Low
+HCP1022,Dr. Y Pillai,Cardiology,Tier 2,South,Cardiovascular,86,30,12,9,59,Medium
+HCP1023,Dr. Z Ali,Endocrinology,Tier 2,East,Diabetes,99,35,15,10,66,Medium
+HCP1024,Dr. Q Malhotra,General Medicine,Tier 1,West,Cardiovascular,118,41,17,13,73,High
+HCP1025,Dr. U Roy,Cardiology,Tier 3,East,Cardiovascular,43,15,5,3,34,Low
+HCP1026,Dr. P Chatterjee,Endocrinology,Tier 1,North,Diabetes,132,46,21,15,77,High
+HCP1027,Dr. S Bhat,General Medicine,Tier 2,South,Diabetes,84,29,12,8,56,Medium
+HCP1028,Dr. M Dutta,Cardiology,Tier 3,West,Cardiovascular,36,12,4,3,28,Low
+HCP1029,Dr. R Shetty,Endocrinology,Tier 2,South,Diabetes,108,39,17,12,69,Medium
+HCP1030,Dr. A Bansal,General Medicine,Tier 1,East,Cardiovascular,125,44,18,14,75,High
